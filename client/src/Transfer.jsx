@@ -15,7 +15,6 @@ function Transfer({ address, setBalance }) {
     recipient
   });
 
-
   async function transfer(evt) {
     evt.preventDefault();
 
