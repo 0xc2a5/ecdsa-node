@@ -1,23 +1,38 @@
 import { useState } from "react";
+import { getRandomBytesSync } from "ethereum-cryptography/random";
 import server from "./server";
 
 function Transfer({ address, setBalance }) {
   const [sendAmount, setSendAmount] = useState("");
   const [recipient, setRecipient] = useState("");
+  const [signatureAndRecoveryBit, setSignatureAndRecoveryBit] = useState("");
+
+  // const [randomNumber] = getRandomBytesSync(1);
+  // const NONCE = `${Date.now()}_${randomNumber}`;
+  const NONCE = "abc123";
 
   const setValue = (setter) => (evt) => setter(evt.target.value);
+
+  const message = JSON.stringify({
+    amount: sendAmount,
+    nonce: "abc123",
+    recipient
+  });
+
 
   async function transfer(evt) {
     evt.preventDefault();
 
     try {
+      const { recoveryBit, signature } = JSON.parse(signatureAndRecoveryBit);
       const {
         data: { balance },
       } = await server.post(`send`, {
-        sender: address,
-        amount: parseInt(sendAmount),
-        recipient,
+        message,
+        recoveryBit,
+        signature
       });
+      console.log("balance", balance);
       setBalance(balance);
     } catch (ex) {
       alert(ex.response.data.message);
@@ -44,6 +59,23 @@ function Transfer({ address, setBalance }) {
           value={recipient}
           onChange={setValue(setRecipient)}
         ></input>
+      </label>
+
+      <label>
+        Message
+        <pre id="message">
+          {message}
+        </pre>
+      </label>
+
+      <label>
+        Signature & Recovery Bit
+        <input
+          placeholder="Sign the message above and enter the result: { signature, recoveryBit }"
+          value={signatureAndRecoveryBit}
+          onChange={setValue(setSignatureAndRecoveryBit)}
+        ></input>
+
       </label>
 
       <input type="submit" className="button" value="Transfer" />
