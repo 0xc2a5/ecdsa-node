@@ -23,7 +23,9 @@ label {
 }
 
 .container {
-  flex-grow: 1;
+  width: 40%;
+  flex-basis: 40%;
+  flex-grow: 0;
   margin: 0 20px;
   background-color: #fff;
   border: 1px solid #cbd5e0;
@@ -88,5 +90,6 @@ input {
   & #message {
     background-color: #cbd5e0;
     padding: 1rem;
+    overflow: scroll;
   }
 }

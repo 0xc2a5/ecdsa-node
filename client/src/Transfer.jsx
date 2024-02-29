@@ -1,21 +1,17 @@
 import { useState } from "react";
-import { getRandomBytesSync } from "ethereum-cryptography/random";
 import server from "./server";
 
 function Transfer({ address, setBalance }) {
   const [sendAmount, setSendAmount] = useState("");
   const [recipient, setRecipient] = useState("");
   const [signatureAndRecoveryBit, setSignatureAndRecoveryBit] = useState("");
-
-  // const [randomNumber] = getRandomBytesSync(1);
-  // const NONCE = `${Date.now()}_${randomNumber}`;
-  const NONCE = "abc123";
+  const [nonce, setNonce] = useState("");
 
   const setValue = (setter) => (evt) => setter(evt.target.value);
 
   const message = JSON.stringify({
     amount: sendAmount,
-    nonce: "abc123",
+    nonce,
     recipient
   });
 
@@ -58,6 +54,15 @@ function Transfer({ address, setBalance }) {
           placeholder="Type an address, for example: 0x2"
           value={recipient}
           onChange={setValue(setRecipient)}
+        ></input>
+      </label>
+
+      <label>
+        Nonce
+        <input
+          placeholder="Type a random value to prevent duplicate transactions, for example: abc123"
+          value={nonce}
+          onChange={setValue(setNonce)}
         ></input>
       </label>
 

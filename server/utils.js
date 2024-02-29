@@ -1,6 +1,6 @@
 const { keccak256 } = require("ethereum-cryptography/keccak");
 const secp256k1 = require("ethereum-cryptography/secp256k1");
-const { hexToBytes, toHex, utf8ToBytes, bytesToHex } = require("ethereum-cryptography/utils");
+const { hexToBytes, toHex, utf8ToBytes } = require("ethereum-cryptography/utils");
 
 function hashMessage(message) {
   const bytes = utf8ToBytes(message);
