@@ -79,7 +79,6 @@ function Transfer({ address, setBalance }) {
           value={signatureAndRecoveryBit}
           onChange={setValue(setSignatureAndRecoveryBit)}
         ></input>
-
       </label>
 
       <input type="submit" className="button" value="Transfer" />
