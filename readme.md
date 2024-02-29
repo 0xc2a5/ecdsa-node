@@ -1,3 +1,13 @@
+## Instructions
+
+1. Add transfer details in the frontend
+
+2. Run `server/scripts/sign` after modifying the `ADDRESS` and `MESSAGE` constants with details from the frontend
+
+3. Copy the resulting JSON object `{ signature, recoveryBit }` from the console into the frontend
+
+4. Click transfer
+
 ## ECDSA Node
 
 This project is an example of using a client and server to facilitate transfers between different addresses. Since there is just a single server on the back-end handling transfers, this is clearly very centralized. We won't worry about distributed consensus for this project.
